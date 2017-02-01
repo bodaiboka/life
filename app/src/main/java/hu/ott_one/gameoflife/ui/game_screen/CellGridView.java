@@ -1,12 +1,19 @@
 package hu.ott_one.gameoflife.ui.game_screen;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import hu.ott_one.gameoflife.R;
 
 /**
  * Created by richardbodai on 2/1/17.
@@ -15,8 +22,11 @@ public class CellGridView extends View {
     private int numColumns, numRows;
     private int cellWidth, cellHeight;
     private Paint blackPaint = new Paint();
+    private Paint rectPaint = new Paint();
     private boolean[][] cellChecked;
     private GamePresenter presenter;
+    private Bitmap bitmap;
+    private Rect bitmapRect;
 
     public CellGridView(Context context) {
         this(context, null);
@@ -25,6 +35,11 @@ public class CellGridView extends View {
     public CellGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         blackPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        blackPaint.setColor(getResources().getColor(R.color.light_gray));
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.retro_block);
+        BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+        rectPaint.setShader(shader);
+        bitmapRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
     }
 
     public void setNumColumns(int numColumns) {
@@ -66,7 +81,7 @@ public class CellGridView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(Color.WHITE);
+        canvas.drawColor(Color.TRANSPARENT);
 
         if (numColumns == 0 || numRows == 0) {
             return;
@@ -79,9 +94,14 @@ public class CellGridView extends View {
             for (int j = 0; j < numRows; j++) {
                 if (cellChecked[i][j]) {
 
-                    canvas.drawRect(i * cellWidth, j * cellHeight,
+                    Rect rect = new Rect(i * cellWidth, j * cellHeight,
+                            (i + 1) * cellWidth, (j + 1) * cellHeight);
+
+                    /*canvas.drawRect(i * cellWidth, j * cellHeight,
                             (i + 1) * cellWidth, (j + 1) * cellHeight,
-                            blackPaint);
+                            rectPaint);*/
+
+                    canvas.drawBitmap(bitmap, bitmapRect, rect, null);
                 }
             }
         }
