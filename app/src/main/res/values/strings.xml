@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Game of Life</string>
+
+    <string name="btn_start_game">Start Game</string>
+    <string name="btn_open_settings">Settings</string>
+
 </resources>
