@@ -8,11 +8,19 @@ import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 public class MainPresenter extends MvpBasePresenter<IMainView> {
 
     public void startNewGame() {
-
+        if (isViewAttached()) {
+            if (getView() != null) {
+                getView().showNewGame();
+            }
+        }
     }
 
     public void openSettings() {
-
+        if (isViewAttached()) {
+            if (getView() != null) {
+                getView().showSettings();
+            }
+        }
     }
 
 }

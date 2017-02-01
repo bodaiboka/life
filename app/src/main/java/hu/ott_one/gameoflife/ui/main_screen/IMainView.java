@@ -8,4 +8,7 @@ import com.hannesdorfmann.mosby.mvp.MvpView;
 public interface IMainView extends MvpView {
     void onNewGameButtonPressed();
     void onSettingsButtonPressed();
+
+    void showNewGame();
+    void showSettings();
 }

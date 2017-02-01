@@ -6,7 +6,6 @@ import android.widget.Button;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hu.ott_one.gameoflife.R;
@@ -15,10 +14,6 @@ import hu.ott_one.gameoflife.R;
  * Created by richardbodai on 2/1/17.
  */
 public class GameActivity extends MvpActivity<IGameView, GamePresenter> implements IGameView {
-
-    @BindView(R.id.btn_next) Button btnNext;
-    @BindView(R.id.btn_play) Button btnPlay;
-    @BindView(R.id.btn_pause) Button btnPause;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
