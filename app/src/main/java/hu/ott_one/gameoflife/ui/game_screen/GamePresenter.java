@@ -15,7 +15,12 @@ public class GamePresenter extends MvpBasePresenter<IGameView> {
     private GameModelAccessObject gameHandler;
 
     public void createNextGeneration() {
-
+        gameHandler.tick();
+        if (isViewAttached()) {
+            if (getView() != null) {
+                getView().displayGeneration(gameHandler.getGameModel().getCells());
+            }
+        }
     }
 
     public void playGenerations() {
@@ -37,4 +42,7 @@ public class GamePresenter extends MvpBasePresenter<IGameView> {
         }
     }
 
+    public void onCellClicked(int column, int row, boolean isAlive) {
+        gameHandler.setCell(column, row, isAlive);
+    }
 }

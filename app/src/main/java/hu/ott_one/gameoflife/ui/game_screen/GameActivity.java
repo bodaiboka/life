@@ -55,14 +55,15 @@ public class GameActivity extends MvpActivity<IGameView, GamePresenter> implemen
     @Override
     public void initDisplay(GameTable table) {
         cellsView = new PixelGridView(this);
+        cellsView.setPresenter(presenter);
         cellsView.setNumColumns(table.getWidth());
         cellsView.setNumRows(table.getHeight());
         cellsFrame.addView(cellsView);
     }
 
     @Override
-    public void displayGeneration() {
-
+    public void displayGeneration(boolean[][] cells) {
+        cellsView.setCellChecked(cells);
     }
 
     @NonNull

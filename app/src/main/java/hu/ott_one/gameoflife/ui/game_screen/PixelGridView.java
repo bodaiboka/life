@@ -16,6 +16,7 @@ public class PixelGridView extends View {
     private int cellWidth, cellHeight;
     private Paint blackPaint = new Paint();
     private boolean[][] cellChecked;
+    private GamePresenter presenter;
 
     public PixelGridView(Context context) {
         this(context, null);
@@ -102,8 +103,18 @@ public class PixelGridView extends View {
 
             cellChecked[column][row] = !cellChecked[column][row];
             invalidate();
+            presenter.onCellClicked(column, row, cellChecked[column][row]);
         }
 
         return true;
+    }
+
+    public void setPresenter(GamePresenter presenter) {
+        this.presenter = presenter;
+    }
+
+    public void setCellChecked(boolean[][] cellChecked) {
+        this.cellChecked = cellChecked;
+        invalidate();
     }
 }

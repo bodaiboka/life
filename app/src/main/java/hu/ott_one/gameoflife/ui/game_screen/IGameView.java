@@ -13,5 +13,5 @@ public interface IGameView extends MvpView {
     void onPauseButtonPressed();
 
     void initDisplay(GameTable table);
-    void displayGeneration();
+    void displayGeneration(boolean[][] cells);
 }
