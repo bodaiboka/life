@@ -27,6 +27,7 @@ public class CellGridView extends View {
     private GamePresenter presenter;
     private Bitmap bitmap;
     private Rect bitmapRect;
+    private boolean isVisibleGrids = false;
 
     public CellGridView(Context context) {
         this(context, null);
@@ -106,12 +107,14 @@ public class CellGridView extends View {
             }
         }
 
-        for (int i = 1; i < numColumns; i++) {
-            canvas.drawLine(i * cellWidth, 0, i * cellWidth, height, blackPaint);
-        }
+        if (isVisibleGrids) {
+            for (int i = 1; i < numColumns; i++) {
+                canvas.drawLine(i * cellWidth, 0, i * cellWidth, height, blackPaint);
+            }
 
-        for (int i = 1; i < numRows; i++) {
-            canvas.drawLine(0, i * cellHeight, width, i * cellHeight, blackPaint);
+            for (int i = 1; i < numRows; i++) {
+                canvas.drawLine(0, i * cellHeight, width, i * cellHeight, blackPaint);
+            }
         }
     }
 
@@ -135,6 +138,11 @@ public class CellGridView extends View {
 
     public void setCellChecked(boolean[][] cellChecked) {
         this.cellChecked = cellChecked;
+        invalidate();
+    }
+
+    public void showGrids(boolean checked) {
+        isVisibleGrids = checked;
         invalidate();
     }
 }

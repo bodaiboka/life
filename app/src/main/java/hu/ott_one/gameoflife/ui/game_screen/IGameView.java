@@ -11,6 +11,7 @@ public interface IGameView extends MvpView {
     void onNextButtonPressed();
     void onPlayButtonPressed();
     void onPauseButtonPressed();
+    void onShowGridsPressed();
 
     void initDisplay(GameTable table);
     void displayGeneration(boolean[][] cells);

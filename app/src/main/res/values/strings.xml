@@ -11,4 +11,6 @@
     <string name="btn_save_table_data">Save</string>
     <string name="tv_table_width">Table width</string>
     <string name="tv_table_height">Table height</string>
+
+    <string name="cb_show_grids">Show grids</string>
 </resources>

@@ -83,7 +83,6 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/holo_blue"
-
             ></View>
 
         <LinearLayout
@@ -100,23 +99,40 @@
             android:padding="5dp"
             android:orientation="vertical">
 
+            <CheckBox
+                android:id="@+id/cb_show_grids"
+                android:layout_gravity="top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cb_show_grids"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <Button
+                    android:id="@+id/btn_play"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_play"/>
+
+                <Button
+                    android:id="@+id/btn_pause"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_pause"/>
+            </LinearLayout>
+
             <Button
                 android:id="@+id/btn_next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_next" />
 
-            <Button
-                android:id="@+id/btn_play"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/btn_play"/>
 
-            <Button
-                android:id="@+id/btn_pause"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/btn_pause"/>
 
         </LinearLayout>
 

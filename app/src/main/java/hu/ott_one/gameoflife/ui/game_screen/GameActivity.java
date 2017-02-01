@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
@@ -22,6 +23,7 @@ public class GameActivity extends MvpActivity<IGameView, GamePresenter> implemen
     @BindView(R.id.btn_play) Button btnPlay;
     @BindView(R.id.btn_pause) Button btnPause;
     @BindView(R.id.btn_next) Button btnNext;
+    @BindView(R.id.cb_show_grids) CheckBox cbShowGrids;
 
     private final int TICK_TIME = 200;
 
@@ -71,6 +73,12 @@ public class GameActivity extends MvpActivity<IGameView, GamePresenter> implemen
         btnNext.setEnabled(true);
         btnPlay.setEnabled(true);
         btnPause.setEnabled(false);
+    }
+
+    @OnClick(R.id.cb_show_grids)
+    @Override
+    public void onShowGridsPressed() {
+        cellsView.showGrids(cbShowGrids.isChecked());
     }
 
     @Override
