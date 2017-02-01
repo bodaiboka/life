@@ -20,7 +20,6 @@ public class SettingsPresenter extends MvpBasePresenter<ISettingsView> {
         }
     }
 
-
     public void initSettings() {
         GameTable table = SettingsManager.getTableSettings();
         if (isViewAttached()) {

@@ -11,18 +11,18 @@ import android.view.View;
 /**
  * Created by richardbodai on 2/1/17.
  */
-public class PixelGridView extends View {
+public class CellGridView extends View {
     private int numColumns, numRows;
     private int cellWidth, cellHeight;
     private Paint blackPaint = new Paint();
     private boolean[][] cellChecked;
     private GamePresenter presenter;
 
-    public PixelGridView(Context context) {
+    public CellGridView(Context context) {
         this(context, null);
     }
 
-    public PixelGridView(Context context, AttributeSet attrs) {
+    public CellGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         blackPaint.setStyle(Paint.Style.FILL_AND_STROKE);
     }

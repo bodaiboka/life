@@ -23,14 +23,6 @@ public class GamePresenter extends MvpBasePresenter<IGameView> {
         }
     }
 
-    public void playGenerations() {
-
-    }
-
-    public void pauseGenerations() {
-
-    }
-
     public void init() {
         GameTable table = SettingsManager.getTableSettings();
         GameModel gameModel = new GameModel(table.getWidth(), table.getHeight());

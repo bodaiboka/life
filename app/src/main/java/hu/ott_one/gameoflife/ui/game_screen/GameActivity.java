@@ -3,6 +3,7 @@ package hu.ott_one.gameoflife.ui.game_screen;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
@@ -18,16 +19,23 @@ import hu.ott_one.gameoflife.model.GameTable;
  */
 public class GameActivity extends MvpActivity<IGameView, GamePresenter> implements IGameView {
 
+    @BindView(R.id.btn_play) Button btnPlay;
+    @BindView(R.id.btn_pause) Button btnPause;
+    @BindView(R.id.btn_next) Button btnNext;
+
+    private final int TICK_TIME = 200;
+
     @BindView(R.id.frame_cells) FrameLayout cellsFrame;
-    PixelGridView cellsView;
+    CellGridView cellsView;
     final Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
             presenter.createNextGeneration();
-            handler.postDelayed(this, 300);
+            handler.postDelayed(this, TICK_TIME);
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,18 +58,24 @@ public class GameActivity extends MvpActivity<IGameView, GamePresenter> implemen
     @OnClick(R.id.btn_play)
     @Override
     public void onPlayButtonPressed() {
-        handler.postDelayed(runnable, 500);
+        handler.postDelayed(runnable, TICK_TIME);
+        btnNext.setEnabled(false);
+        btnPlay.setEnabled(false);
+        btnPause.setEnabled(true);
     }
 
     @OnClick(R.id.btn_pause)
     @Override
     public void onPauseButtonPressed() {
         handler.removeCallbacks(runnable);
+        btnNext.setEnabled(true);
+        btnPlay.setEnabled(true);
+        btnPause.setEnabled(false);
     }
 
     @Override
     public void initDisplay(GameTable table) {
-        cellsView = new PixelGridView(this);
+        cellsView = new CellGridView(this);
         cellsView.setPresenter(presenter);
         cellsView.setNumColumns(table.getWidth());
         cellsView.setNumRows(table.getHeight());
