@@ -4,4 +4,7 @@
     <string name="btn_start_game">Start Game</string>
     <string name="btn_open_settings">Settings</string>
 
+    <string name="btn_next">Next</string>
+    <string name="btn_play">Play</string>
+    <string name="btn_pause">Pause</string>
 </resources>
