@@ -21,7 +21,11 @@ public class SettingsManager {
     }
 
     public static void saveTableSettings(GameTable table) {
-
+        SharedPreferences.Editor prefsEditor = mSharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(table);
+        prefsEditor.putString(KEY_TABLE_SETTINGS, json);
+        prefsEditor.commit();
     }
 
     public static GameTable getTableSettings() {

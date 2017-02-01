@@ -1,8 +1,8 @@
 package hu.ott_one.gameoflife.ui.game_screen;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
@@ -20,7 +20,14 @@ public class GameActivity extends MvpActivity<IGameView, GamePresenter> implemen
 
     @BindView(R.id.frame_cells) FrameLayout cellsFrame;
     PixelGridView cellsView;
-
+    final Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            presenter.createNextGeneration();
+            handler.postDelayed(this, 300);
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,13 +50,13 @@ public class GameActivity extends MvpActivity<IGameView, GamePresenter> implemen
     @OnClick(R.id.btn_play)
     @Override
     public void onPlayButtonPressed() {
-        presenter.playGenerations();
+        handler.postDelayed(runnable, 500);
     }
 
     @OnClick(R.id.btn_pause)
     @Override
     public void onPauseButtonPressed() {
-        presenter.pauseGenerations();
+        handler.removeCallbacks(runnable);
     }
 
     @Override

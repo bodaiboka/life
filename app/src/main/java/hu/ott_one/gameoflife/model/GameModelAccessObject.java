@@ -1,7 +1,5 @@
 package hu.ott_one.gameoflife.model;
 
-import java.util.ArrayList;
-
 /**
  * Created by richardbodai on 2/1/17.
  */
@@ -20,18 +18,6 @@ public class GameModelAccessObject {
 
     public GameModel getGameModel() {
         return gameModel;
-    }
-
-    public void setGameModel(GameModel gameModel) {
-        this.gameModel = gameModel;
-    }
-
-    public void populateCell(int i, int j) {
-        gameModel.getCells()[i][j] = true;
-    }
-
-    public void unPopulateCell(int i, int j) {
-        gameModel.getCells()[i][j] = false;
     }
 
     public void setCell(int i, int j, boolean isAlive) {
@@ -68,10 +54,5 @@ public class GameModelAccessObject {
         }
         gameModel = modelTo;
     }
-
-
-
-
-
 
 }
