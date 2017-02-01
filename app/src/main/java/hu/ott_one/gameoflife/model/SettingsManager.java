@@ -29,7 +29,7 @@ public class SettingsManager {
         String json = mSharedPreferences.getString(KEY_TABLE_SETTINGS, "");
         GameTable table;
         if (json.equals("")) {
-            table = new GameTable(10, 10);
+            table = new GameTable(15, 15);
         }
         else {
             table = gson.fromJson(json, GameTable.class);

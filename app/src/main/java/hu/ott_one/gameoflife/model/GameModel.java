@@ -6,9 +6,21 @@ package hu.ott_one.gameoflife.model;
 public class GameModel {
 
     private boolean[][] cells;
+    private int width;
+    private int height;
 
     public GameModel(int width, int height) {
         cells = new boolean[width][height];
+        this.width = width;
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public boolean[][] getCells() {

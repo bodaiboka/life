@@ -13,9 +13,9 @@ public class GameModelAccessObject {
 
     public GameModelAccessObject(GameModel gameModel) {
         tickNum = 0;
-        gameModels[0] = gameModel;
-        gameModels[1] = gameModel;
-        this.gameModel = gameModels[0];
+        gameModels[0] = new GameModel(gameModel.getWidth(), gameModel.getHeight());
+        gameModels[1] = new GameModel(gameModel.getWidth(), gameModel.getHeight());
+        initGameModels(gameModel);
     }
 
     public GameModel getGameModel() {
@@ -38,6 +38,16 @@ public class GameModelAccessObject {
         gameModel.getCells()[i][j] = isAlive;
     }
 
+    public void initGameModels(GameModel gameModel) {
+        for (int i = 0; i < gameModel.getCells().length; i++) {
+            for (int j = 0; j < gameModel.getCells()[i].length; j++) {
+                gameModels[0].getCells()[i][j] = gameModel.getCells()[i][j];
+            }
+        }
+        gameModels[1].clear();
+        this.gameModel = gameModels[0];
+    }
+
     public void tick() {
         tickNum++;
         GameModel modelFrom;
@@ -50,6 +60,7 @@ public class GameModelAccessObject {
             modelFrom = gameModels[1];
             modelTo = gameModels[0];
         }
+        modelTo.clear();
         for (int i = 0; i < modelFrom.getCells().length; i++) {
             for (int j = 0; j < modelFrom.getCells()[i].length; j++) {
                 modelTo.getCells()[i][j] = modelFrom.generateCellNextState(i, j);
