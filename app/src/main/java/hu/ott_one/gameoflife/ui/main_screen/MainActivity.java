@@ -3,9 +3,11 @@ package hu.ott_one.gameoflife.ui.main_screen;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.widget.FrameLayout;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hu.ott_one.gameoflife.R;
