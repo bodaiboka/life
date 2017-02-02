@@ -55,4 +55,11 @@ public class GameModelAccessObject {
         gameModel = modelTo;
     }
 
+    public int getTickNum() {
+        return tickNum;
+    }
+
+    public void setTickNum(int tickNum) {
+        this.tickNum = tickNum;
+    }
 }

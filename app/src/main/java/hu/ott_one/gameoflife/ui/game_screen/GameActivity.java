@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
@@ -24,8 +26,17 @@ public class GameActivity extends MvpActivity<IGameView, GamePresenter> implemen
     @BindView(R.id.btn_pause) Button btnPause;
     @BindView(R.id.btn_next) Button btnNext;
     @BindView(R.id.cb_show_grids) CheckBox cbShowGrids;
+    @BindView(R.id.tv_tick) TextView tvTick;
+    @BindView(R.id.sb_velocity) SeekBar sbVelocity;
 
-    private final int TICK_TIME = 200;
+    // legalacsonyabb idő két tick között
+    private final int TICK_TIME = 1000;
+    // sebbesség változtató seeker maximuma
+    private final int SEEKBAR_MAX = 94;
+    // seeker kezdő pozíciója
+    private final int SEEKER_INIT = 80;
+
+    double playVelocityScale;
 
     @BindView(R.id.frame_cells) FrameLayout cellsFrame;
     CellGridView cellsView;
@@ -34,7 +45,7 @@ public class GameActivity extends MvpActivity<IGameView, GamePresenter> implemen
         @Override
         public void run() {
             presenter.createNextGeneration();
-            handler.postDelayed(this, TICK_TIME);
+            handler.postDelayed(this, (long)(TICK_TIME * playVelocityScale));
         }
     };
 
@@ -43,6 +54,7 @@ public class GameActivity extends MvpActivity<IGameView, GamePresenter> implemen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         ButterKnife.bind(this);
+        initSeeker();
     }
 
     @Override
@@ -60,7 +72,7 @@ public class GameActivity extends MvpActivity<IGameView, GamePresenter> implemen
     @OnClick(R.id.btn_play)
     @Override
     public void onPlayButtonPressed() {
-        handler.postDelayed(runnable, TICK_TIME);
+        handler.postDelayed(runnable, (long)(TICK_TIME * playVelocityScale));
         btnNext.setEnabled(false);
         btnPlay.setEnabled(false);
         btnPause.setEnabled(true);
@@ -81,13 +93,22 @@ public class GameActivity extends MvpActivity<IGameView, GamePresenter> implemen
         cellsView.showGrids(cbShowGrids.isChecked());
     }
 
+    @OnClick(R.id.btn_clear)
+    @Override
+    public void onClearButtonPressed() {
+        onPauseButtonPressed();
+        presenter.init();
+    }
+
     @Override
     public void initDisplay(GameTable table) {
+        cellsFrame.removeAllViews();
         cellsView = new CellGridView(this);
         cellsView.setPresenter(presenter);
         cellsView.setNumColumns(table.getWidth());
         cellsView.setNumRows(table.getHeight());
         cellsFrame.addView(cellsView);
+        cellsView.showGrids(cbShowGrids.isChecked());
     }
 
     @Override
@@ -95,9 +116,36 @@ public class GameActivity extends MvpActivity<IGameView, GamePresenter> implemen
         cellsView.setCellChecked(cells);
     }
 
+    @Override
+    public void updateTick(int i) {
+        tvTick.setText(""+i);
+    }
+
     @NonNull
     @Override
     public GamePresenter createPresenter() {
         return new GamePresenter();
+    }
+
+    private void initSeeker() {
+        sbVelocity.setMax(SEEKBAR_MAX);
+        sbVelocity.setProgress(SEEKER_INIT);
+        playVelocityScale = 1.0 - ((double)(sbVelocity.getProgress()) / 100.0);
+        sbVelocity.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                playVelocityScale = 1.0 - ((double)i / 100.0);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 }

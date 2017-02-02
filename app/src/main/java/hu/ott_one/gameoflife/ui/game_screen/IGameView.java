@@ -12,7 +12,9 @@ public interface IGameView extends MvpView {
     void onPlayButtonPressed();
     void onPauseButtonPressed();
     void onShowGridsPressed();
+    void onClearButtonPressed();
 
     void initDisplay(GameTable table);
     void displayGeneration(boolean[][] cells);
+    void updateTick(int i);
 }

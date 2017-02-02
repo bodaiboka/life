@@ -13,4 +13,5 @@
     <string name="tv_table_height">Table height</string>
 
     <string name="cb_show_grids">Show grids</string>
+    <string name="btn_clear">clear</string>
 </resources>

@@ -28,6 +28,7 @@ public class CellGridView extends View {
     private Bitmap bitmap;
     private Rect bitmapRect;
     private boolean isVisibleGrids = false;
+    private boolean isTouchable = true;
 
     public CellGridView(Context context) {
         this(context, null);
@@ -120,6 +121,10 @@ public class CellGridView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (!isTouchable) {
+            return true;
+        }
+
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             int column = (int)(event.getX() / cellWidth);
             int row = (int)(event.getY() / cellHeight);
@@ -144,5 +149,20 @@ public class CellGridView extends View {
     public void showGrids(boolean checked) {
         isVisibleGrids = checked;
         invalidate();
+    }
+
+    public void initPattern(boolean[][] pattern) {
+        cellChecked = pattern;
+        presenter.initPattern(pattern);
+        invalidate();
+    }
+
+    public void setTouchable(boolean touchable) {
+        isTouchable = touchable;
+    }
+
+    public void setBitmap(int bitmapId) {
+        bitmap = BitmapFactory.decodeResource(getResources(), bitmapId);
+        bitmapRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
     }
 }
