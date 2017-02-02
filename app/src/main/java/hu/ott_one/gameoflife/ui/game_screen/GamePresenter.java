@@ -43,8 +43,6 @@ public class GamePresenter extends MvpBasePresenter<IGameView> {
         if (isViewAttached()) {
             if (getView() != null) {
                 getView().initDisplay(table);
-                /*getView().displayGeneration(gameHandler.getGameModel().getCells());
-                getView().updateTick(gameHandler.getTickNum());*/
             }
         }
     }
