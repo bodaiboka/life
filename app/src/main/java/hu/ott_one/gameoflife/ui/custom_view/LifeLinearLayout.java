@@ -1,23 +1,25 @@
-package hu.ott_one.gameoflife.ui.game_screen;
+package hu.ott_one.gameoflife.ui.custom_view;
 
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.widget.LinearLayout;
 
 import com.hannesdorfmann.mosby.mvp.layout.MvpLinearLayout;
 
 import hu.ott_one.gameoflife.R;
 import hu.ott_one.gameoflife.model.GameTable;
+import hu.ott_one.gameoflife.ui.game_screen.CellGridView;
+import hu.ott_one.gameoflife.ui.game_screen.GamePresenter;
+import hu.ott_one.gameoflife.ui.game_screen.IGameView;
 
 /**
  * Created by richardbodai on 2/2/17.
  */
 public class LifeLinearLayout extends MvpLinearLayout<IGameView, GamePresenter> implements IGameView {
 
-    CellGridView cellsView;
+    private CellGridView cellsView;
     private final int TICK_TIME = 80;
-    final Handler handler = new Handler();
+    private final Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -90,6 +92,7 @@ public class LifeLinearLayout extends MvpLinearLayout<IGameView, GamePresenter> 
         cellsView.setNumRows(table.getHeight());
         cellsView.showGrids(false);
         cellsView.setBitmap(R.drawable.block_green);
+        // egy glider-rel inicializálom a grid-et
         boolean[][] pattern = new boolean[table.getWidth()][table.getHeight()];
         pattern[2][1] = true;
         pattern[3][2] = true;

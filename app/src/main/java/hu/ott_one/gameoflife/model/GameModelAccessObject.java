@@ -59,7 +59,18 @@ public class GameModelAccessObject {
         return tickNum;
     }
 
-    public void setTickNum(int tickNum) {
-        this.tickNum = tickNum;
+    // Ez a függvény azt a célt szolgálja, hogy amikor szerkesztés miatt nullázzuk a tick számot, a
+    // akkor is a megfelelő tömbre mutasson a gameModel, páratlan tick szám esetén cserélni kell
+    // a tömböket, mert különben .
+    public void resetTickNum() {
+        if (tickNum % 2 == 1) {
+            for (int i = 0; i < gameModels[0].getCells().length; i++) {
+                for (int j = 0; j < gameModels[0].getCells().length; j++) {
+                    gameModels[0].getCells()[i][j] = gameModels[1].getCells()[i][j];
+                }
+            }
+        }
+        gameModel = gameModels[0];
+        tickNum = 0;
     }
 }

@@ -51,7 +51,7 @@ public class GamePresenter extends MvpBasePresenter<IGameView> {
         gameHandler.setCell(column, row, isAlive);
         // ha szerkesztjük a cellákat, akkor lenullázzuk a tick számlálót,
         // mintha előlről kezdenénk a generálást
-        gameHandler.setTickNum(0);
+        gameHandler.resetTickNum();
         if (isViewAttached()) {
             if (getView() != null) {
                 getView().updateTick(gameHandler.getTickNum());
