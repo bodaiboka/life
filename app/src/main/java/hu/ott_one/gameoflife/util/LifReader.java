@@ -1,10 +1,18 @@
 package hu.ott_one.gameoflife.util;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import hu.ott_one.gameoflife.interactor.SettingsInteractor;
+import hu.ott_one.gameoflife.model.LifModel;
+import hu.ott_one.gameoflife.model.Point;
 
 /**
  * .LIF file beolvasó osztály
@@ -12,15 +20,7 @@ import java.util.ArrayList;
  */
 public class LifReader {
 
-    class Point {
-        public int x;
-        public int y;
-
-        public Point(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
+    Context context;
 
     final String LIFE_VERSION = "#Life";
     final String NORMAL = "#N";
@@ -29,29 +29,28 @@ public class LifReader {
 
     ArrayList<Point> lifeCells = new ArrayList<>();
 
-    boolean[][] pattern;
-
     int upperLeftCornerX;
     int upperLeftCornerY;
     int minX, minY, maxX, maxY;
     int yDelta = 0;
 
-    boolean currentlyParsingPattern = false;
+    public LifReader(Context context) {
+        this.context = context;
+    }
 
     public void readFile(String path) {
         lifeCells.clear();
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+            AssetManager assetManager = context.getAssets();
+            InputStream inputStream = assetManager.open(path);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line = bufferedReader.readLine();
             while (line != null) {
                 processLine(line);
                 line = bufferedReader.readLine();
             }
-            // a beolvasott élő cellákból összerakjuk a tábla mintát
-            pattern = new boolean[maxX - minX][maxY - minY];
-            for (int i = 0; i < lifeCells.size(); i++) {
-                pattern[lifeCells.get(i).x][lifeCells.get(i).y] = true;
-            }
+            LifModel initModel = new LifModel(lifeCells, minX, minY, maxX, maxY);
+            SettingsInteractor.saveInitPattern(initModel);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -100,6 +99,5 @@ public class LifReader {
             yDelta++;
         }
     }
-
 
 }

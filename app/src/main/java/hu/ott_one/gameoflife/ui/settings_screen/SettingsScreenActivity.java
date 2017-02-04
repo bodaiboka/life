@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hu.ott_one.gameoflife.R;
 import hu.ott_one.gameoflife.model.GameTable;
+import hu.ott_one.gameoflife.util.LifReader;
 
 /**
  * Created by richardbodai on 2/1/17.
@@ -48,6 +49,8 @@ public class SettingsScreenActivity extends MvpActivity<ISettingsScreenView, Set
         try {
             width = Integer.parseInt(etWidth.getText().toString());
             height = Integer.parseInt(etHeight.getText().toString());
+            LifReader lifReader = new LifReader(this);
+            lifReader.readFile("lifs/ACORN.LIF");
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Invalid input parameters", Toast.LENGTH_SHORT).show();
             return;

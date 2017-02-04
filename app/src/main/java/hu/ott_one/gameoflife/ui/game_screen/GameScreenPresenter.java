@@ -4,6 +4,7 @@ import hu.ott_one.gameoflife.model.GameModel;
 import hu.ott_one.gameoflife.interactor.GameModelInteractor;
 import hu.ott_one.gameoflife.model.GameTable;
 import hu.ott_one.gameoflife.interactor.SettingsInteractor;
+import hu.ott_one.gameoflife.model.LifModel;
 import hu.ott_one.gameoflife.ui.game_screen.base_presenter_view.LifeOfGamePresenter;
 
 /**
@@ -12,12 +13,12 @@ import hu.ott_one.gameoflife.ui.game_screen.base_presenter_view.LifeOfGamePresen
 public class GameScreenPresenter extends LifeOfGamePresenter<IGameScreenView> {
 
     public void init() {
-        GameModel gameModel = SettingsInteractor.getInitGameModel();
-        GameTable table;
-        if (gameModel != null) {
-            table = new GameTable(gameModel.getWidth(), gameModel.getHeight());
+        GameModel gameModel;
+        LifModel lifModel = SettingsInteractor.getLifModel();
+        GameTable table = SettingsInteractor.getTableSettings();
+        if (lifModel != null) {
+            gameModel = new GameModel(lifModel, table.getWidth(), table.getHeight());
         } else {
-            table = SettingsInteractor.getTableSettings();
             gameModel = new GameModel(table.getWidth(), table.getHeight());
         }
         gameHandler = new GameModelInteractor(gameModel);

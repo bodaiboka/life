@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 
 import hu.ott_one.gameoflife.model.GameModel;
 import hu.ott_one.gameoflife.model.GameTable;
+import hu.ott_one.gameoflife.model.LifModel;
 
 /**
  * Created by richardbodai on 2/1/17.
@@ -43,25 +44,25 @@ public class SettingsInteractor {
         return table;
     }
 
-    public static void saveInitPattern(GameModel gameModel) {
+    public static void saveInitPattern(LifModel lifModel) {
         SharedPreferences.Editor prefsEditor = mSharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(gameModel);
+        String json = gson.toJson(lifModel);
         prefsEditor.putString(KEY_INIT_PATTERN, json);
         prefsEditor.commit();
     }
 
-    public static GameModel getInitGameModel() {
+    public static LifModel getLifModel() {
         Gson gson = new Gson();
         String json = mSharedPreferences.getString(KEY_INIT_PATTERN, "");
-        GameModel gameModel;
+        LifModel lifModel;
         if (json.equals("")) {
             return null;
         }
         else {
-            gameModel = gson.fromJson(json, GameModel.class);
+            lifModel = gson.fromJson(json, LifModel.class);
         }
-        return gameModel;
+        return lifModel;
     }
 
 }

@@ -15,6 +15,22 @@ public class GameModel {
         this.height = height;
     }
 
+    public GameModel(LifModel lifModel, int width, int height) {
+        // a beolvasott élő cellákból összerakjuk a tábla mintát
+        cells = new boolean[width][height];
+        int translateX = width / 2;
+        int translateY = height / 2;
+        for (int i = 0; i < lifModel.getLifeCells().size(); i++) {
+            try {
+                cells[lifModel.getLifeCells().get(i).x + translateX][lifModel.getLifeCells().get(i).y + translateY] = true;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                continue;
+            }
+        }
+        this.width = width;
+        this.height = height;
+    }
+
     public GameModel(boolean[][] initPattern, int border) {
         cells = initPattern;
         this.width = initPattern.length + border * 2;

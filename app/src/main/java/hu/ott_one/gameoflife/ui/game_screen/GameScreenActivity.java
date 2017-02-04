@@ -63,6 +63,12 @@ public class GameScreenActivity extends MvpActivity<IGameScreenView, GameScreenP
         presenter.init();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
     @OnClick(R.id.btn_next)
     @Override
     public void onNextButtonPressed() {
@@ -107,8 +113,8 @@ public class GameScreenActivity extends MvpActivity<IGameScreenView, GameScreenP
         cellsView.setPresenter(presenter);
         cellsView.setNumColumns(table.getWidth());
         cellsView.setNumRows(table.getHeight());
-        cellsFrame.addView(cellsView);
         cellsView.showGrids(cbShowGrids.isChecked());
+        cellsFrame.addView(cellsView);
     }
 
     @Override

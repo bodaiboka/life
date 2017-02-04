@@ -14,7 +14,6 @@ import hu.ott_one.gameoflife.ui.game_screen.base_presenter_view.BaseCellGridView
  */
 public class CellGridView extends BaseCellGridView {
 
-    private GameScreenPresenter presenter;
     private boolean isVisibleGrids = false;
     private boolean isTouchable = true;
 
@@ -76,7 +75,7 @@ public class CellGridView extends BaseCellGridView {
 
             cellChecked[column][row] = !cellChecked[column][row];
             invalidate();
-            presenter.onCellClicked(column, row, cellChecked[column][row]);
+            ((GameScreenPresenter)presenter).onCellClicked(column, row, cellChecked[column][row]);
         }
 
         return true;
