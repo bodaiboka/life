@@ -22,7 +22,7 @@ public class LifReader {
         }
     }
 
-    final String LIFE_VERSION = "#L";
+    final String LIFE_VERSION = "#Life";
     final String NORMAL = "#N";
     final String RULES = "#R";
     final String PATTERN = "#P";
@@ -47,6 +47,11 @@ public class LifReader {
                 processLine(line);
                 line = bufferedReader.readLine();
             }
+            // a beolvasott élő cellákból összerakjuk a tábla mintát
+            pattern = new boolean[maxX - minX][maxY - minY];
+            for (int i = 0; i < lifeCells.size(); i++) {
+                pattern[lifeCells.get(i).x][lifeCells.get(i).y] = true;
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -55,15 +60,19 @@ public class LifReader {
     }
 
     public void processLine(String line) {
+        // .lif file verzió
         if (line.startsWith(LIFE_VERSION)) {
 
         }
+        // normál szabályok
         if (line.startsWith(NORMAL)) {
 
         }
+        // speciális szabályok
         if (line.startsWith(RULES)) {
 
         }
+        // egy összefüggő blokk bal felső csúcsa, amit maga a minta követ
         if (line.startsWith(PATTERN)) {
             yDelta = 0;
             String[] parts = line.split(" ");
