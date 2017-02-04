@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 
+import hu.ott_one.gameoflife.model.GameModel;
 import hu.ott_one.gameoflife.model.GameTable;
 
 /**
@@ -14,6 +15,7 @@ import hu.ott_one.gameoflife.model.GameTable;
 public class SettingsInteractor {
 
     private static final String KEY_TABLE_SETTINGS = "key_table_settings";
+    private static final String KEY_INIT_PATTERN = "key_init_pattern";
     static SharedPreferences mSharedPreferences;
 
     public static void initSharedPreferences(Context context) {
@@ -39,6 +41,27 @@ public class SettingsInteractor {
             table = gson.fromJson(json, GameTable.class);
         }
         return table;
+    }
+
+    public static void saveInitPattern(GameModel gameModel) {
+        SharedPreferences.Editor prefsEditor = mSharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(gameModel);
+        prefsEditor.putString(KEY_INIT_PATTERN, json);
+        prefsEditor.commit();
+    }
+
+    public static GameModel getInitGameModel() {
+        Gson gson = new Gson();
+        String json = mSharedPreferences.getString(KEY_INIT_PATTERN, "");
+        GameModel gameModel;
+        if (json.equals("")) {
+            return null;
+        }
+        else {
+            gameModel = gson.fromJson(json, GameModel.class);
+        }
+        return gameModel;
     }
 
 }

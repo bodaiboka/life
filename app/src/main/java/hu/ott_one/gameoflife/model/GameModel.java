@@ -15,6 +15,12 @@ public class GameModel {
         this.height = height;
     }
 
+    public GameModel(boolean[][] initPattern, int border) {
+        cells = initPattern;
+        this.width = initPattern.length + border * 2;
+        this.height = initPattern[0].length + border * 2;
+    }
+
     public int getWidth() {
         return width;
     }
