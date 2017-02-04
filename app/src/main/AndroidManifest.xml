@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main_screen.MainActivity"
+        <activity android:name=".ui.main_screen.MainScreenActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,9 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.game_screen.GameActivity"
+        <activity android:name=".ui.game_screen.GameScreenActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.settings_screen.SettingsActivity"
+        <activity android:name=".ui.settings_screen.SettingsScreenActivity"
             android:screenOrientation="portrait"/>
     </application>
 

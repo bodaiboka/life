@@ -1,4 +1,4 @@
-package hu.ott_one.gameoflife.model;
+package hu.ott_one.gameoflife.interactor;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,17 +6,17 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 
+import hu.ott_one.gameoflife.model.GameTable;
+
 /**
  * Created by richardbodai on 2/1/17.
  */
-public class SettingsManager {
+public class SettingsInteractor {
 
     private static final String KEY_TABLE_SETTINGS = "key_table_settings";
     static SharedPreferences mSharedPreferences;
-    static private Context mContext;
 
     public static void initSharedPreferences(Context context) {
-        mContext = context;
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 

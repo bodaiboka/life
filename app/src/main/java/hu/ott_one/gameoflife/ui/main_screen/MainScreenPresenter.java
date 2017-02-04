@@ -5,7 +5,7 @@ import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 /**
  * Created by richardbodai on 2/1/17.
  */
-public class MainPresenter extends MvpBasePresenter<IMainView> {
+public class MainScreenPresenter extends MvpBasePresenter<IMainScreenView> {
 
     public void startNewGame() {
         if (isViewAttached()) {

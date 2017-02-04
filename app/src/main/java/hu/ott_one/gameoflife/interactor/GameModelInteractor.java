@@ -1,15 +1,17 @@
-package hu.ott_one.gameoflife.model;
+package hu.ott_one.gameoflife.interactor;
+
+import hu.ott_one.gameoflife.model.GameModel;
 
 /**
  * Created by richardbodai on 2/1/17.
  */
-public class GameModelAccessObject {
+public class GameModelInteractor {
 
     private int tickNum;
     private GameModel gameModel;
     private GameModel[] gameModels = new GameModel[2];
 
-    public GameModelAccessObject(GameModel gameModel) {
+    public GameModelInteractor(GameModel gameModel) {
         tickNum = 0;
         gameModels[0] = new GameModel(gameModel.getWidth(), gameModel.getHeight());
         gameModels[1] = new GameModel(gameModel.getWidth(), gameModel.getHeight());

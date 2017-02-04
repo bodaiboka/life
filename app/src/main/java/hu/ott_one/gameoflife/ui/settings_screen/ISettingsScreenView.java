@@ -7,7 +7,7 @@ import hu.ott_one.gameoflife.model.GameTable;
 /**
  * Created by richardbodai on 2/1/17.
  */
-public interface ISettingsView extends MvpView {
+public interface ISettingsScreenView extends MvpView {
 
     void onSaveButtonPressed();
     void showSettings(GameTable table);

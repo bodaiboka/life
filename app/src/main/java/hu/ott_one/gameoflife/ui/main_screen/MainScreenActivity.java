@@ -10,11 +10,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hu.ott_one.gameoflife.R;
-import hu.ott_one.gameoflife.ui.game_screen.GameActivity;
+import hu.ott_one.gameoflife.ui.game_screen.GameScreenActivity;
 import hu.ott_one.gameoflife.ui.custom_view.LifeLinearLayout;
-import hu.ott_one.gameoflife.ui.settings_screen.SettingsActivity;
+import hu.ott_one.gameoflife.ui.settings_screen.SettingsScreenActivity;
 
-public class MainActivity extends MvpActivity<IMainView, MainPresenter> implements IMainView {
+public class MainScreenActivity extends MvpActivity<IMainScreenView, MainScreenPresenter> implements IMainScreenView {
 
     @BindView(R.id.ll_background) LifeLinearLayout llBackground;
 
@@ -28,8 +28,8 @@ public class MainActivity extends MvpActivity<IMainView, MainPresenter> implemen
 
     @NonNull
     @Override
-    public MainPresenter createPresenter() {
-        return new MainPresenter();
+    public MainScreenPresenter createPresenter() {
+        return new MainScreenPresenter();
     }
 
     @OnClick(R.id.btn_start_game)
@@ -47,14 +47,14 @@ public class MainActivity extends MvpActivity<IMainView, MainPresenter> implemen
     @Override
     public void showNewGame() {
         Intent intent = new Intent();
-        intent.setClass(this, GameActivity.class);
+        intent.setClass(this, GameScreenActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void showSettings() {
         Intent intent = new Intent();
-        intent.setClass(this, SettingsActivity.class);
+        intent.setClass(this, SettingsScreenActivity.class);
         startActivity(intent);
     }
 

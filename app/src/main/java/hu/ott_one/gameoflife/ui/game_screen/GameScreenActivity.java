@@ -20,7 +20,7 @@ import hu.ott_one.gameoflife.model.GameTable;
 /**
  * Created by richardbodai on 2/1/17.
  */
-public class GameActivity extends MvpActivity<IGameView, GamePresenter> implements IGameView {
+public class GameScreenActivity extends MvpActivity<IGameScreenView, GameScreenPresenter> implements IGameScreenView {
 
     @BindView(R.id.btn_play) Button btnPlay;
     @BindView(R.id.btn_pause) Button btnPause;
@@ -123,8 +123,8 @@ public class GameActivity extends MvpActivity<IGameView, GamePresenter> implemen
 
     @NonNull
     @Override
-    public GamePresenter createPresenter() {
-        return new GamePresenter();
+    public GameScreenPresenter createPresenter() {
+        return new GameScreenPresenter();
     }
 
     private void initSeeker() {

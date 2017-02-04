@@ -9,13 +9,13 @@ import com.hannesdorfmann.mosby.mvp.layout.MvpLinearLayout;
 import hu.ott_one.gameoflife.R;
 import hu.ott_one.gameoflife.model.GameTable;
 import hu.ott_one.gameoflife.ui.game_screen.CellGridView;
-import hu.ott_one.gameoflife.ui.game_screen.GamePresenter;
-import hu.ott_one.gameoflife.ui.game_screen.IGameView;
+import hu.ott_one.gameoflife.ui.game_screen.base_presenter_view.ILifeOfGameView;
+import hu.ott_one.gameoflife.ui.game_screen.base_presenter_view.LifeOfGamePresenter;
 
 /**
  * Created by richardbodai on 2/2/17.
  */
-public class LifeLinearLayout extends MvpLinearLayout<IGameView, GamePresenter> implements IGameView {
+public class LifeLinearLayout extends MvpLinearLayout<ILifeOfGameView, LifeOfGamePresenter<ILifeOfGameView>> implements ILifeOfGameView {
 
     private CellGridView cellsView;
     private final int TICK_TIME = 80;
@@ -44,7 +44,7 @@ public class LifeLinearLayout extends MvpLinearLayout<IGameView, GamePresenter> 
 
     private void init() {
         GameTable table = new GameTable(10, 16);
-        presenter.customInit(table);
+        presenter.init(table);
     }
 
     @Override
@@ -54,33 +54,8 @@ public class LifeLinearLayout extends MvpLinearLayout<IGameView, GamePresenter> 
     }
 
     @Override
-    public GamePresenter createPresenter() {
-        return new GamePresenter();
-    }
-
-    @Override
-    public void onNextButtonPressed() {
-
-    }
-
-    @Override
-    public void onPlayButtonPressed() {
-
-    }
-
-    @Override
-    public void onPauseButtonPressed() {
-
-    }
-
-    @Override
-    public void onShowGridsPressed() {
-
-    }
-
-    @Override
-    public void onClearButtonPressed() {
-
+    public LifeOfGamePresenter createPresenter() {
+        return new LifeOfGamePresenter<>();
     }
 
     @Override
@@ -106,11 +81,6 @@ public class LifeLinearLayout extends MvpLinearLayout<IGameView, GamePresenter> 
     @Override
     public void displayGeneration(boolean[][] cells) {
         cellsView.setCellChecked(cells);
-    }
-
-    @Override
-    public void updateTick(int i) {
-
     }
 
     public void onResume() {

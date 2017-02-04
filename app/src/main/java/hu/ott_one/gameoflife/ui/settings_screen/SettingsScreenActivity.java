@@ -16,7 +16,7 @@ import hu.ott_one.gameoflife.model.GameTable;
 /**
  * Created by richardbodai on 2/1/17.
  */
-public class SettingsActivity extends MvpActivity<ISettingsView, SettingsPresenter> implements ISettingsView {
+public class SettingsScreenActivity extends MvpActivity<ISettingsScreenView, SettingsScreenPresenter> implements ISettingsScreenView {
 
     @BindView(R.id.et_table_width) EditText etWidth;
     @BindView(R.id.et_table_height) EditText etHeight;
@@ -36,8 +36,8 @@ public class SettingsActivity extends MvpActivity<ISettingsView, SettingsPresent
 
     @NonNull
     @Override
-    public SettingsPresenter createPresenter() {
-        return new SettingsPresenter();
+    public SettingsScreenPresenter createPresenter() {
+        return new SettingsScreenPresenter();
     }
 
     @OnClick(R.id.btn_save_table)

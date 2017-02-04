@@ -1,18 +1,28 @@
 package hu.ott_one.gameoflife.ui.game_screen;
 
-import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
-
 import hu.ott_one.gameoflife.model.GameModel;
-import hu.ott_one.gameoflife.model.GameModelAccessObject;
+import hu.ott_one.gameoflife.interactor.GameModelInteractor;
 import hu.ott_one.gameoflife.model.GameTable;
-import hu.ott_one.gameoflife.model.SettingsManager;
+import hu.ott_one.gameoflife.interactor.SettingsInteractor;
+import hu.ott_one.gameoflife.ui.game_screen.base_presenter_view.LifeOfGamePresenter;
 
 /**
  * Created by richardbodai on 2/1/17.
  */
-public class GamePresenter extends MvpBasePresenter<IGameView> {
+public class GameScreenPresenter extends LifeOfGamePresenter<IGameScreenView> {
 
-    private GameModelAccessObject gameHandler;
+    public void init() {
+        GameTable table = SettingsInteractor.getTableSettings();
+        GameModel gameModel = new GameModel(table.getWidth(), table.getHeight());
+        gameHandler = new GameModelInteractor(gameModel);
+        if (isViewAttached()) {
+            if (getView() != null) {
+                getView().initDisplay(table);
+                getView().displayGeneration(gameHandler.getGameModel().getCells());
+                getView().updateTick(gameHandler.getTickNum());
+            }
+        }
+    }
 
     public void createNextGeneration() {
         gameHandler.tick();
@@ -20,29 +30,6 @@ public class GamePresenter extends MvpBasePresenter<IGameView> {
             if (getView() != null) {
                 getView().displayGeneration(gameHandler.getGameModel().getCells());
                 getView().updateTick(gameHandler.getTickNum());
-            }
-        }
-    }
-
-    public void init() {
-        GameTable table = SettingsManager.getTableSettings();
-        GameModel gameModel = new GameModel(table.getWidth(), table.getHeight());
-        gameHandler = new GameModelAccessObject(gameModel);
-        if (isViewAttached()) {
-            if (getView() != null) {
-                getView().initDisplay(table);
-                getView().displayGeneration(gameHandler.getGameModel().getCells());
-                getView().updateTick(gameHandler.getTickNum());
-            }
-        }
-    }
-
-    public void customInit(GameTable table) {
-        GameModel gameModel = new GameModel(table.getWidth(), table.getHeight());
-        gameHandler = new GameModelAccessObject(gameModel);
-        if (isViewAttached()) {
-            if (getView() != null) {
-                getView().initDisplay(table);
             }
         }
     }
@@ -57,9 +44,5 @@ public class GamePresenter extends MvpBasePresenter<IGameView> {
                 getView().updateTick(gameHandler.getTickNum());
             }
         }
-    }
-
-    public void initPattern(boolean[][] pattern) {
-        gameHandler.getGameModel().setCells(pattern);
     }
 }
