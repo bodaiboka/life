@@ -3,9 +3,15 @@ package hu.ott_one.gameoflife.ui.settings_screen;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,12 +27,30 @@ public class SettingsScreenActivity extends MvpActivity<ISettingsScreenView, Set
 
     @BindView(R.id.et_table_width) EditText etWidth;
     @BindView(R.id.et_table_height) EditText etHeight;
+    @BindView(R.id.list_view) ListView patternListView;
+
+    String[] from = {"FILE_NAME"};
+    int[] to = {R.id.tv_file_name};
+    String[] list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
+        try {
+            list = getAssets().list("lifs");
+            ArrayList<HashMap<String, String>> mapList = new ArrayList<>();
+            for (int i = 0; i < list.length; i++) {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("FILE_NAME", list[i]);
+                mapList.add(map);
+                SimpleAdapter adapter = new SimpleAdapter(this, mapList, R.layout.patter_list_item, from, to);
+                patternListView.setAdapter(adapter);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

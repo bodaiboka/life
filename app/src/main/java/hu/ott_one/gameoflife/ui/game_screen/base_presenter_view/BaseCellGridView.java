@@ -70,8 +70,8 @@ public class BaseCellGridView extends View {
             return;
         }
 
-        cellWidth = getWidth() / numColumns;
-        cellHeight = getHeight() / numRows;
+        cellWidth = (int)Math.round((double)getWidth() / (double)numColumns);
+        cellHeight = (int)Math.round((double)getHeight() / (double)numRows);
 
         if (cellChecked == null) {
             cellChecked = new boolean[numColumns][numRows];
