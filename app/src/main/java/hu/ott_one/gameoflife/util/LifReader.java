@@ -71,7 +71,7 @@ public class LifReader {
         if (line.startsWith(DESCRIPTION)) {
             try {
                 if (description.equals("")) description += (line.substring(3) + "\n\n");
-                else description += line.substring(3);
+                else description += (line.substring(3) + " ");
             } catch (StringIndexOutOfBoundsException e) {
                 description += "\n";
             }
