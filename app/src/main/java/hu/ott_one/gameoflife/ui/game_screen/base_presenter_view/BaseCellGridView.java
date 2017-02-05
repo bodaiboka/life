@@ -73,8 +73,9 @@ public class BaseCellGridView extends View {
         cellWidth = getWidth() / numColumns;
         cellHeight = getHeight() / numRows;
 
-        cellChecked = new boolean[numColumns][numRows];
-
+        if (cellChecked == null) {
+            cellChecked = new boolean[numColumns][numRows];
+        }
         invalidate();
     }
 
