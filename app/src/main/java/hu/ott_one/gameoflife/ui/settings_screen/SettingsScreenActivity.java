@@ -2,9 +2,14 @@ package hu.ott_one.gameoflife.ui.settings_screen;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
@@ -17,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hu.ott_one.gameoflife.R;
+import hu.ott_one.gameoflife.interactor.SettingsInteractor;
 import hu.ott_one.gameoflife.model.GameTable;
 import hu.ott_one.gameoflife.util.LifReader;
 
@@ -28,6 +34,8 @@ public class SettingsScreenActivity extends MvpActivity<ISettingsScreenView, Set
     @BindView(R.id.et_table_width) EditText etWidth;
     @BindView(R.id.et_table_height) EditText etHeight;
     @BindView(R.id.list_view) ListView patternListView;
+    @BindView(R.id.tv_selected_file) TextView tvSelectedFile;
+    @BindView(R.id.cb_start_from_pattern) CheckBox cbStartFromPattern;
 
     String[] from = {"FILE_NAME"};
     int[] to = {R.id.tv_file_name};
@@ -38,6 +46,9 @@ public class SettingsScreenActivity extends MvpActivity<ISettingsScreenView, Set
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        tvSelectedFile.setText(SettingsInteractor.getSelectedPattern());
+        cbStartFromPattern.setChecked(SettingsInteractor.getCheckBoxState());
         try {
             list = getAssets().list("lifs");
             ArrayList<HashMap<String, String>> mapList = new ArrayList<>();
@@ -47,6 +58,12 @@ public class SettingsScreenActivity extends MvpActivity<ISettingsScreenView, Set
                 mapList.add(map);
                 SimpleAdapter adapter = new SimpleAdapter(this, mapList, R.layout.patter_list_item, from, to);
                 patternListView.setAdapter(adapter);
+                patternListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        tvSelectedFile.setText(list[i]);
+                    }
+                });
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -73,12 +90,18 @@ public class SettingsScreenActivity extends MvpActivity<ISettingsScreenView, Set
         try {
             width = Integer.parseInt(etWidth.getText().toString());
             height = Integer.parseInt(etHeight.getText().toString());
-            LifReader lifReader = new LifReader(this);
-            lifReader.readFile("lifs/ACORN.LIF");
+            if (cbStartFromPattern.isChecked()) {
+                LifReader lifReader = new LifReader(this);
+                lifReader.readFile("lifs/" + tvSelectedFile.getText().toString());
+            } else {
+                SettingsInteractor.saveInitPattern(null);
+            }
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Invalid input parameters", Toast.LENGTH_SHORT).show();
             return;
         }
+        SettingsInteractor.saveCheckBoxState(cbStartFromPattern.isChecked());
+        SettingsInteractor.saveSelectedPattern(tvSelectedFile.getText().toString());
         presenter.saveTableSize(width, height);
     }
 

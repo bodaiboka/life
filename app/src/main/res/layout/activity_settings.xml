@@ -46,6 +46,7 @@
             android:inputType="numberDecimal"/>
 
         <CheckBox
+            android:id="@+id/cb_start_from_pattern"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="start from a selected pattern"/>
@@ -61,6 +62,7 @@
                 android:text="selected pattern: "/>
 
             <TextView
+                android:id="@+id/tv_selected_file"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ACORN.LIF"/>

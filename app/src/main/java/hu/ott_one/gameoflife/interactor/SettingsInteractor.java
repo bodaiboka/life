@@ -17,6 +17,8 @@ public class SettingsInteractor {
 
     private static final String KEY_TABLE_SETTINGS = "key_table_settings";
     private static final String KEY_INIT_PATTERN = "key_init_pattern";
+    private static final String KEY_CHECKBOX = "key_checkbox";
+    private static final String KEY_SELECTED_PATTERN = "key_selected_pattern";
     static SharedPreferences mSharedPreferences;
 
     public static void initSharedPreferences(Context context) {
@@ -47,7 +49,12 @@ public class SettingsInteractor {
     public static void saveInitPattern(LifModel lifModel) {
         SharedPreferences.Editor prefsEditor = mSharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(lifModel);
+        String json;
+        if (lifModel == null) {
+            json = "";
+        } else {
+            json = gson.toJson(lifModel);
+        }
         prefsEditor.putString(KEY_INIT_PATTERN, json);
         prefsEditor.commit();
     }
@@ -63,6 +70,26 @@ public class SettingsInteractor {
             lifModel = gson.fromJson(json, LifModel.class);
         }
         return lifModel;
+    }
+
+    public static void saveCheckBoxState(boolean state) {
+        SharedPreferences.Editor prefsEditor = mSharedPreferences.edit();
+        prefsEditor.putBoolean(KEY_CHECKBOX, state);
+        prefsEditor.commit();
+    }
+
+    public static boolean getCheckBoxState() {
+        return mSharedPreferences.getBoolean(KEY_CHECKBOX, false);
+    }
+
+    public static void saveSelectedPattern(String pattern) {
+        SharedPreferences.Editor prefsEditor = mSharedPreferences.edit();
+        prefsEditor.putString(KEY_SELECTED_PATTERN, pattern);
+        prefsEditor.commit();
+    }
+
+    public static String getSelectedPattern() {
+        return mSharedPreferences.getString(KEY_SELECTED_PATTERN, "ACORN.LIF");
     }
 
 }

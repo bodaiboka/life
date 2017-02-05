@@ -15,7 +15,7 @@ public class SettingsScreenPresenter extends MvpBasePresenter<ISettingsScreenVie
         SettingsInteractor.saveTableSettings(table);
         if (isViewAttached()) {
             if (getView() != null) {
-                getView().showMessage("Table size saved");
+                getView().showMessage("Settings saved");
             }
         }
     }
