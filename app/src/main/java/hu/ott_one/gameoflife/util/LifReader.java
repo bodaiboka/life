@@ -81,7 +81,7 @@ public class LifReader {
         else {
             for (int i = 0; i < line.length(); i++) {
                 if (line.charAt(i) == '*') {
-                    Point point = new Point(upperLeftCornerX + i, upperLeftCornerY - yDelta);
+                    Point point = new Point(upperLeftCornerX + i, upperLeftCornerY + yDelta);
                     if (lifeCells.size() == 0) {
                         minX = point.x;
                         minY = point.y;
@@ -93,7 +93,7 @@ public class LifReader {
                         if (point.y > maxY) maxY = point.y;
                         if (point.y < minY) minY = point.y;
                     }
-                    lifeCells.add(new Point(upperLeftCornerX + i, upperLeftCornerY - yDelta));
+                    lifeCells.add(point);
                 }
             }
             yDelta++;
