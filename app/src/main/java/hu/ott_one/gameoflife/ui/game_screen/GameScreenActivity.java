@@ -3,9 +3,11 @@ package hu.ott_one.gameoflife.ui.game_screen;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -28,6 +30,9 @@ public class GameScreenActivity extends MvpActivity<IGameScreenView, GameScreenP
     @BindView(R.id.cb_show_grids) CheckBox cbShowGrids;
     @BindView(R.id.tv_tick) TextView tvTick;
     @BindView(R.id.sb_velocity) SeekBar sbVelocity;
+    @BindView(R.id.tv_lif_description) TextView tvLifDescription;
+    @BindView(R.id.cb_show_description) CheckBox cbShowDescription;
+    @BindView(R.id.ll_lif_description) LinearLayout llLifDescription;
 
     // legalacsonyabb idő két tick között
     private final int TICK_TIME = 1000;
@@ -99,6 +104,8 @@ public class GameScreenActivity extends MvpActivity<IGameScreenView, GameScreenP
         cellsView.showGrids(cbShowGrids.isChecked());
     }
 
+
+
     @OnClick(R.id.btn_clear)
     @Override
     public void onClearButtonPressed() {
@@ -125,6 +132,23 @@ public class GameScreenActivity extends MvpActivity<IGameScreenView, GameScreenP
     @Override
     public void updateTick(int i) {
         tvTick.setText(""+i);
+    }
+
+    @Override
+    public void showDescription(String description) {
+        tvLifDescription.setText(description);
+        llLifDescription.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.cb_show_description)
+    @Override
+    public void onShowDescriptionPressed() {
+        if (cbShowDescription.isChecked()) {
+            presenter.checkDescription();
+        } else {
+            llLifDescription.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     @NonNull

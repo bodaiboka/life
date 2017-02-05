@@ -12,4 +12,6 @@ public interface IGameScreenView extends ILifeOfGameView {
     void onShowGridsPressed();
     void onClearButtonPressed();
     void updateTick(int i);
+    void showDescription(String description);
+    void onShowDescriptionPressed();
 }

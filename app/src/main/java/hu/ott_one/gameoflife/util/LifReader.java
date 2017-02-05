@@ -23,11 +23,13 @@ public class LifReader {
     Context context;
 
     final String LIFE_VERSION = "#Life";
+    final String DESCRIPTION = "#D";
     final String NORMAL = "#N";
     final String RULES = "#R";
     final String PATTERN = "#P";
 
     ArrayList<Point> lifeCells = new ArrayList<>();
+    String description;
 
     int upperLeftCornerX;
     int upperLeftCornerY;
@@ -40,6 +42,7 @@ public class LifReader {
 
     public void readFile(String path) {
         lifeCells.clear();
+        description = new String("");
         try {
             AssetManager assetManager = context.getAssets();
             InputStream inputStream = assetManager.open(path);
@@ -50,6 +53,7 @@ public class LifReader {
                 line = bufferedReader.readLine();
             }
             LifModel initModel = new LifModel(lifeCells, minX, minY, maxX, maxY);
+            initModel.setDescription(description);
             SettingsInteractor.saveInitPattern(initModel);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -62,6 +66,15 @@ public class LifReader {
         // .lif file verzió
         if (line.startsWith(LIFE_VERSION)) {
 
+        }
+        // leírás
+        if (line.startsWith(DESCRIPTION)) {
+            try {
+                if (description.equals("")) description += (line.substring(3) + "\n\n");
+                else description += line.substring(3);
+            } catch (StringIndexOutOfBoundsException e) {
+                description += "\n";
+            }
         }
         // normál szabályok
         if (line.startsWith(NORMAL)) {

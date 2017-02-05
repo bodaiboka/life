@@ -13,6 +13,8 @@ public class LifModel {
     int maxX;
     int maxY;
 
+    String description;
+
     public LifModel(ArrayList<Point> lifeCells, int minX, int minY, int maxX, int maxY) {
         this.lifeCells = lifeCells;
         this.minX = minX;
@@ -48,5 +50,13 @@ public class LifModel {
 
     public int getMaxY() {
         return maxY;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

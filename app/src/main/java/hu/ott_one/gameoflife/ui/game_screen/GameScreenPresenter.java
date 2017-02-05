@@ -12,12 +12,15 @@ import hu.ott_one.gameoflife.ui.game_screen.base_presenter_view.LifeOfGamePresen
  */
 public class GameScreenPresenter extends LifeOfGamePresenter<IGameScreenView> {
 
+    String description = null;
+
     public void init() {
         GameModel gameModel;
         LifModel lifModel = SettingsInteractor.getLifModel();
         GameTable table = SettingsInteractor.getTableSettings();
         if (lifModel != null) {
             gameModel = new GameModel(lifModel, table.getWidth(), table.getHeight());
+            description = lifModel.getDescription();
         } else {
             gameModel = new GameModel(table.getWidth(), table.getHeight());
         }
@@ -49,6 +52,16 @@ public class GameScreenPresenter extends LifeOfGamePresenter<IGameScreenView> {
         if (isViewAttached()) {
             if (getView() != null) {
                 getView().updateTick(gameHandler.getTickNum());
+            }
+        }
+    }
+
+    public void checkDescription() {
+        if (description != null) {
+            if (isViewAttached()) {
+                if (getView() != null) {
+                    getView().showDescription(description);
+                }
             }
         }
     }
